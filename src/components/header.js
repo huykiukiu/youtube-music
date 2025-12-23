@@ -1,7 +1,7 @@
 export const Header = () => {
   return `
   <header>
-    <div class="flex items-center gap-20 bg-black min-h-16 px-8 py-3 fixed w-full">
+    <div class="flex items-center justify-between gap-20 bg-black min-h-16 px-8 py-3 fixed w-full z-10">
         <div class="flex items-center gap-7">
                <i class="fa-solid fa-bars text-white text-[24px]"></i>
                 <div class="youtube-logo flex cursor-pointer">
@@ -10,7 +10,6 @@ export const Header = () => {
                     <span class="text-xl font-semibold tracking-tight text-white">Music</span>    
                 </div>
         </div>
-        <div class="flex justify-between w-[1500px]">
             <div class="bg-[#242424] px-5 py-3 rounded-md"> 
                     <span class="text-white"><i class="fa-solid fa-magnifying-glass"></i></span>
                     <input type='search' class="text-white w-[400px] px-1.5 outline-none" placeholder="Tìm bài hát, đĩa nhạc, nghệ sĩ"></input>
@@ -20,7 +19,7 @@ export const Header = () => {
                 <div><i class="fa-solid fa-ellipsis-vertical text-white text-[24px]"></i></div>
                 <button class="bg-white text-black px-2 py-1 rounded-3xl font-semibold">Đăng nhập</button>
             </div>
-        </div>  
+        
     </div>
   </header>
   `;
