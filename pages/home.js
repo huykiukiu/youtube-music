@@ -8,14 +8,6 @@ export default function Home() {
         <div>
             <div class="flex items-end justify-between">
                 <h1 class="text-white text-5xl font-bold">Quick picks</h1>
-                <div class="flex gap-4">
-                    <div class="js-quickpicks-previous-btn w-8 h-8 rounded-full bg-[#132337] flex justify-center items-center cursor-pointer">
-                        <i class="fa-solid fa-angle-left text-gray-500"></i>
-                    </div>
-                    <div class="js-quickpicks-next-btn w-8 h-8 rounded-full bg-[#132337] flex justify-center items-center cursor-pointer">
-                        <i class="fa-solid fa-angle-right text-gray-500"></i>
-                    </div>
-                </div>
             </div> 
             <div class="overflow-hidden">
                 <div class="js-quickPicks my-3 transition-transform duration-500 ease-in-out"></div>
@@ -165,12 +157,14 @@ export function homeScript() {
   async function fetchMoods() {
     const response = await instance.get("/moods");
     const moods = response.data.items;
-    console.log(moods);
     document.querySelector(".js-moods").innerHTML = moods
-      .map(
-        (mood) =>
-          `<button class="bg-[#39414C] text-white px-2 py-1 rounded-md cursor-pointer text-[14px]">${mood.name}</button>`
-      )
+      .map((mood) => {
+        return `
+        <div class="group"> 
+          <button class="bg-[#39414C] text-white px-2 py-1 rounded-md cursor-pointer text-[14px] group-hover:bg-gray-400">${mood.name}</button>
+        </div>
+        `;
+      })
       .join("");
   }
   fetchMoods();
@@ -182,16 +176,20 @@ export function homeScript() {
     document.querySelector(".js-quickPicks").innerHTML = data
       .map((item) => {
         return `
-        <div class="hover:bg-white/10 p-2">
+        <div class="relative group hover:bg-white/10 p-2">
             <div class="flex gap-5">
-                <div>
+                <div class="relative group">
                     <img src='${item.thumbnails[0]}' alt='image' class="w-12 h-12 object-cover rounded-md"/>
+                <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                    <i class="fa-solid fa-play text-white text-sm"></i>
+                </div>
                 </div>
                 <div>
                     <h3 class="text-white">${item.title}</h3>
                     <h3 class="text-gray-400">${item.artists} • <span>${item.popularity} lượt nghe</span></h3>
                 </div>
             </div>
+            
         </div>
       `;
       })
@@ -214,7 +212,12 @@ export function homeScript() {
       .map((item) => {
         return `
         <div class="shrink-0">
+        <div class="relative group">
           <img src='${item.thumbnails}' alt='image' class="w-[220px] rounded-2xl"/>
+          <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+            <i class="fa-solid fa-play text-white text-5xl"></i>
+          </div>
+        </div>
           <h3 class="text-white w-[220px] truncate">${item.title}</h3>
           <p class="text-gray-400">${item.artists}</p>
         </div>
@@ -238,7 +241,12 @@ export function homeScript() {
       .map((item) => {
         return `
         <div class="shrink-0">
+        <div class="relative group">
           <img src='${item.thumbnails}' alt='image' class="w-[220px] h-[220px] object-cover rounded-2xl"/>
+          <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+            <i class="fa-solid fa-play text-white text-5xl"></i>
+          </div>
+        </div>  
           <h3 class="text-white w-[220px] truncate">${item.title}</h3>
           <p class="text-gray-400">${item.artists}</p>
         </div>
@@ -262,7 +270,12 @@ export function homeScript() {
       .map((item) => {
         return `
         <div class="shrink-0">
+        <div class="relative group">
           <img src='${item.thumbnails}' alt='image' class="w-[220px] h-[220px] object-cover rounded-2xl"/>
+          <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+            <i class="fa-solid fa-play text-white text-5xl"></i>
+          </div>
+        </div>
           <h3 class="text-white w-[220px] truncate">${item.title}</h3>
           <p class="text-gray-400">${item.artists}</p>
         </div>

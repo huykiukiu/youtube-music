@@ -6,7 +6,7 @@ export default function DefaultLayout() {
     ${Header()}
     <div class="flex bg-[#091527]">
         ${SideBar()}
-        <main id="main-content" class="flex-1"></main>
+        <main id="main-content" class="flex-1 mt-35"></main>
     </div>
     `;
 }
