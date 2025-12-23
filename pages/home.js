@@ -1,20 +1,21 @@
 import instance from "../src/httpRequest";
 export default function Home() {
   return `
+  <div class="w-[1200px] mx-auto">
     <div class="mb-35">
         <div class="js-moods flex gap-5 mb-35"></div>
         <div>
             <div class="flex items-end justify-between">
                     <h1 class="text-white text-5xl font-bold">Quick picks</h1>
                     <div class="flex gap-4">
-                        <div class="w-8 h-8 rounded-full bg-[#132337] flex justify-center items-center cursor-pointer">
+                        <div class="js-previous-btn w-8 h-8 rounded-full bg-[#132337] flex justify-center items-center cursor-pointer">
                             <i class="fa-solid fa-angle-left text-gray-500"></i>
                         </div>
-                        <div class="w-8 h-8 rounded-full bg-[#132337] flex justify-center items-center cursor-pointer">
+                        <div class="js-next-btn w-8 h-8 rounded-full bg-[#132337] flex justify-center items-center cursor-pointer">
                             <i class="fa-solid fa-angle-right text-gray-500"></i>
                         </div>
                     </div>
-            </div>
+            </div> 
             <div class="js-quickPicks my-3"></div>
         </div>
     </div>
@@ -22,44 +23,45 @@ export default function Home() {
         <div class="flex items-end justify-between mb-10">
             <h1 class="text-white text-5xl font-bold">Album gợi ý cho bạn</h1>
                 <div class="flex gap-4">
-                    <div class="w-8 h-8 rounded-full bg-[#132337] flex justify-center items-center cursor-pointer">
+                    <div class="js-previous-btn w-8 h-8 rounded-full bg-[#132337] flex justify-center items-center cursor-pointer">
                         <i class="fa-solid fa-angle-left text-gray-500"></i>
                     </div>
-                    <div class="w-8 h-8 rounded-full bg-[#132337] flex justify-center items-center cursor-pointer">
+                    <div class="js-next-btn w-8 h-8 rounded-full bg-[#132337] flex justify-center items-center cursor-pointer">
                         <i class="fa-solid fa-angle-right text-gray-500"></i>
                     </div>
                 </div>
         </div>
-        <div class="js-album-suggestions flex gap-3 overflow-hidden overflow-x-auto"></div>
+        <div class="js-album-suggestions flex gap-3 overflow-hidden"></div>
     </div>
     <div class="mb-20">
         <div class="flex items-end justify-between mb-10">
             <h1 class="text-white text-5xl font-bold">Today's Hits</h1>
                 <div class="flex gap-4">
-                    <div class="w-8 h-8 rounded-full bg-[#132337] flex justify-center items-center cursor-pointer">
+                    <div class="js-previous-btn w-8 h-8 rounded-full bg-[#132337] flex justify-center items-center cursor-pointer">
                         <i class="fa-solid fa-angle-left text-gray-500"></i>
                     </div>
-                    <div class="w-8 h-8 rounded-full bg-[#132337] flex justify-center items-center cursor-pointer">
+                    <div class="js-next-btn w-8 h-8 rounded-full bg-[#132337] flex justify-center items-center cursor-pointer">
                         <i class="fa-solid fa-angle-right text-gray-500"></i>
                     </div>
                 </div>
         </div>
-        <div class="js-today-hits flex gap-3 overflow-hidden overflow-x-auto"></div>
+        <div class="js-today-hits flex gap-3 overflow-hidden"></div>
     </div>
     <div>
         <div class="flex items-end justify-between mb-10">
             <h1 class="text-white text-5xl font-bold">Nhạc Việt</h1>
                 <div class="flex gap-4">
-                    <div class="w-8 h-8 rounded-full bg-[#132337] flex justify-center items-center cursor-pointer">
+                    <div class="js-previous-btn w-8 h-8 rounded-full bg-[#132337] flex justify-center items-center cursor-pointer">
                         <i class="fa-solid fa-angle-left text-gray-500"></i>
                     </div>
-                    <div class="w-8 h-8 rounded-full bg-[#132337] flex justify-center items-center cursor-pointer">
+                    <div class="js-next-btn w-8 h-8 rounded-full bg-[#132337] flex justify-center items-center cursor-pointer">
                         <i class="fa-solid fa-angle-right text-gray-500"></i>
                     </div>
                 </div>
         </div>
-        <div class="js-vietnamese-music flex gap-3 overflow-hidden overflow-x-auto"></div>
+        <div class="js-vietnamese-music flex gap-3 overflow-hidden"></div>
     </div>
+  </div>
   `;
 }
 
@@ -67,6 +69,7 @@ export function homeScript() {
   async function fetchMoods() {
     const response = await instance.get("/moods");
     const moods = response.data.items;
+    console.log(moods);
     document.querySelector(".js-moods").innerHTML = moods
       .map(
         (mood) =>
@@ -130,7 +133,7 @@ export function homeScript() {
   }
   fetchTodayHits();
 
-  async function vietnameseMusic() {
+  async function fetchVietnameseMusic() {
     const response = await instance.get("/playlists/by-country?country=VN");
     const data = response.data;
     document.querySelector(".js-vietnamese-music").innerHTML = data.map(
@@ -145,5 +148,5 @@ export function homeScript() {
       }
     );
   }
-  vietnameseMusic();
+  fetchVietnameseMusic();
 }
