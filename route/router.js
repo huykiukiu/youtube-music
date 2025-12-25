@@ -1,3 +1,4 @@
+import Detail, { detailScript } from "../pages/detail";
 import Home, { homeScript } from "../pages/home";
 import Navigo from "navigo";
 
@@ -19,13 +20,15 @@ export default function router() {
     // Scroll main-content về đầu, không ảnh hưởng đến sidebar
     mainContent.scrollTop = 0;
   });
-  router.on("/playlists/details/:slud", () => {
+  router.on("/playlists/details/:slud", ({ data }) => {
     const mainContent = document.querySelector("#main-content");
-    mainContent.innerHTML = "detail";
+    mainContent.innerHTML = Detail();
+    detailScript("playlists", data.slud);
   });
-  router.on("/albums/details/:slud", () => {
+  router.on("/albums/details/:slud", ({ data }) => {
     const mainContent = document.querySelector("#main-content");
-    mainContent.innerHTML = "detail";
+    mainContent.innerHTML = Detail();
+    detailScript("albums", data.slud);
   });
   router.resolve();
 }

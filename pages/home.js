@@ -172,8 +172,6 @@ export function homeScript() {
   async function fetchQuickPicks() {
     const response = await instance.get("/quick-picks");
     const data = response.data;
-    console.log(data);
-
     document.querySelector(".js-quickPicks").innerHTML = data
       .map((item) => {
         return `
