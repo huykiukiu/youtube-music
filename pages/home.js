@@ -3,7 +3,7 @@ import instance from "../src/httpRequest";
 export default function Home() {
   return `
   <div class="w-[1200px] mx-auto">
-    <div class="mb-35">
+    <section class="mb-35">
         <div class="js-moods flex gap-5 mb-35"></div>
         <div>
             <div class="flex items-end justify-between">
@@ -13,8 +13,8 @@ export default function Home() {
                 <div class="js-quickPicks my-3 transition-transform duration-500 ease-in-out"></div>
             </div>
         </div>
-    </div>
-    <div class="mb-20">
+    </section>
+    <section class="mb-20">
         <div class="flex items-end justify-between mb-10">
             <h1 class="text-white text-5xl font-bold">Album gợi ý cho bạn</h1>
             <div class="flex gap-4">
@@ -29,8 +29,8 @@ export default function Home() {
         <div class="overflow-hidden">
             <div class="js-album-suggestions flex gap-3 transition-transform duration-500 ease-in-out"></div>
         </div>
-    </div>
-    <div class="mb-20">
+    </section>
+    <section class="mb-20">
         <div class="flex items-end justify-between mb-10">
             <h1 class="text-white text-5xl font-bold">Today's Hits</h1>
             <div class="flex gap-4">
@@ -45,8 +45,8 @@ export default function Home() {
         <div class="overflow-hidden">
             <div class="js-today-hits flex gap-3 transition-transform duration-500 ease-in-out"></div>
         </div>
-    </div>
-    <div>
+    </section>
+    <section>
         <div class="flex items-end justify-between mb-10">
             <h1 class="text-white text-5xl font-bold">Nhạc Việt</h1>
             <div class="flex gap-4">
@@ -61,7 +61,7 @@ export default function Home() {
         <div class="overflow-hidden">
             <div class="js-vietnamese-music flex gap-3 transition-transform duration-500 ease-in-out"></div>
         </div>
-    </div>
+    </section>
   </div>
   `;
 }

@@ -1,3 +1,4 @@
+import Explore, { exploreScript } from "../pages/explore";
 import Detail, { detailScript } from "../pages/detail";
 import Home, { homeScript } from "../pages/home";
 import Navigo from "navigo";
@@ -16,7 +17,8 @@ export default function router() {
   });
   router.on("/explore", () => {
     const mainContent = document.querySelector("#main-content");
-    mainContent.innerHTML = "huy";
+    mainContent.innerHTML = Explore();
+    exploreScript();
     // Scroll main-content về đầu, không ảnh hưởng đến sidebar
     mainContent.scrollTop = 0;
   });
