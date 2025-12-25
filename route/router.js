@@ -2,13 +2,30 @@ import Home, { homeScript } from "../pages/home";
 import Navigo from "navigo";
 
 export default function router() {
-  const router = new Navigo("/");
+  const router = new Navigo("/", {
+    hash: false,
+  });
+
   router.on("/", () => {
-    document.querySelector("#main-content").innerHTML = Home();
+    const mainContent = document.querySelector("#main-content");
+    mainContent.innerHTML = Home();
+    // Scroll main-content về đầu, không ảnh hưởng đến sidebar
+    mainContent.scrollTop = 0;
     homeScript();
   });
   router.on("/explore", () => {
-    document.querySelector("#main-content").innerHTML = "huy";
+    const mainContent = document.querySelector("#main-content");
+    mainContent.innerHTML = "huy";
+    // Scroll main-content về đầu, không ảnh hưởng đến sidebar
+    mainContent.scrollTop = 0;
+  });
+  router.on("/playlists/details/:slud", () => {
+    const mainContent = document.querySelector("#main-content");
+    mainContent.innerHTML = "detail";
+  });
+  router.on("/albums/details/:slud", () => {
+    const mainContent = document.querySelector("#main-content");
+    mainContent.innerHTML = "detail";
   });
   router.resolve();
 }

@@ -4,7 +4,7 @@ import { SideBar } from "../src/components/sidebar";
 export default function DefaultLayout() {
   return `
     ${Header()}
-    <div class="flex bg-[#091527]">
+    <div class="flex bg-[#091527] min-h-screen">
         ${SideBar()}
         <main id="main-content" class="flex-1 mt-35"></main>
     </div>

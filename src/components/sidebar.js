@@ -1,7 +1,7 @@
 export const SideBar = () => {
   return `
   <aside class="w-[88px] shrink-0">
-    <nav class="bg-black h-[calc(100vh-80px)] sticky top-18">
+    <nav class="bg-black h-full fixed pt-20">
         <ul class="text-white">
             <li>
                 <a href='/' data-navigo class="flex flex-col items-center justify-center gap-1 p-3 hover:bg-white/10 rounded-xl transition group sidebar-active">

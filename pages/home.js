@@ -172,25 +172,25 @@ export function homeScript() {
   async function fetchQuickPicks() {
     const response = await instance.get("/quick-picks");
     const data = response.data;
+    console.log(data);
 
     document.querySelector(".js-quickPicks").innerHTML = data
       .map((item) => {
         return `
-        <div class="relative group hover:bg-white/10 p-2">
+        <a href="/playlists/details/${item.slug}" class="relative group hover:bg-white/10 p-2 block">
             <div class="flex gap-5">
                 <div class="relative group">
                     <img src='${item.thumbnails[0]}' alt='image' class="w-12 h-12 object-cover rounded-md"/>
-                <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
-                    <i class="fa-solid fa-play text-white text-sm"></i>
-                </div>
+                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                        <i class="fa-solid fa-play text-white text-sm"></i>
+                    </div>
                 </div>
                 <div>
                     <h3 class="text-white">${item.title}</h3>
                     <h3 class="text-gray-400">${item.artists} • <span>${item.popularity} lượt nghe</span></h3>
                 </div>
             </div>
-            
-        </div>
+        </a>
       `;
       })
       .join("");
@@ -211,16 +211,16 @@ export function homeScript() {
     document.querySelector(".js-album-suggestions").innerHTML = data
       .map((item) => {
         return `
-        <div class="shrink-0">
-        <div class="relative group">
-          <img src='${item.thumbnails}' alt='image' class="w-[220px] rounded-2xl"/>
-          <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
-            <i class="fa-solid fa-play text-white text-5xl"></i>
+        <a href="/albums/details/${item.slug}" class="shrink-0 block">
+          <div class="relative group">
+            <img src='${item.thumbnails}' alt='image' class="w-[220px] rounded-2xl"/>
+            <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+              <i class="fa-solid fa-play text-white text-5xl"></i>
+            </div>
           </div>
-        </div>
           <h3 class="text-white w-[220px] truncate">${item.title}</h3>
           <p class="text-gray-400">${item.artists}</p>
-        </div>
+        </a>
       `;
       })
       .join("");
@@ -240,16 +240,16 @@ export function homeScript() {
     document.querySelector(".js-today-hits").innerHTML = data
       .map((item) => {
         return `
-        <div class="shrink-0">
-        <div class="relative group">
-          <img src='${item.thumbnails}' alt='image' class="w-[220px] h-[220px] object-cover rounded-2xl"/>
-          <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
-            <i class="fa-solid fa-play text-white text-5xl"></i>
-          </div>
-        </div>  
+        <a href="/playlists/details/${item.slug}" class="shrink-0 block">
+          <div class="relative group">
+            <img src='${item.thumbnails}' alt='image' class="w-[220px] h-[220px] object-cover rounded-2xl"/>
+            <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+              <i class="fa-solid fa-play text-white text-5xl"></i>
+            </div>
+          </div>  
           <h3 class="text-white w-[220px] truncate">${item.title}</h3>
           <p class="text-gray-400">${item.artists}</p>
-        </div>
+        </a>
       `;
       })
       .join("");
@@ -269,16 +269,16 @@ export function homeScript() {
     document.querySelector(".js-vietnamese-music").innerHTML = data
       .map((item) => {
         return `
-        <div class="shrink-0">
-        <div class="relative group">
-          <img src='${item.thumbnails}' alt='image' class="w-[220px] h-[220px] object-cover rounded-2xl"/>
-          <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
-            <i class="fa-solid fa-play text-white text-5xl"></i>
+        <a href="/playlists/details/${item.slug}" class="shrink-0 block">
+          <div class="relative group">
+            <img src='${item.thumbnails}' alt='image' class="w-[220px] h-[220px] object-cover rounded-2xl"/>
+            <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+              <i class="fa-solid fa-play text-white text-5xl"></i>
+            </div>
           </div>
-        </div>
           <h3 class="text-white w-[220px] truncate">${item.title}</h3>
           <p class="text-gray-400">${item.artists}</p>
-        </div>
+        </a>
       `;
       })
       .join("");
