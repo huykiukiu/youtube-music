@@ -175,7 +175,7 @@ export function homeScript() {
     document.querySelector(".js-quickPicks").innerHTML = data
       .map((item) => {
         return `
-        <a href="/playlists/details/${item.slug}" class="relative group hover:bg-white/10 p-2 block">
+        <a href="/playlists/details/${item.slug}" data-navigo class="relative group hover:bg-white/10 p-2 block">
             <div class="flex gap-5">
                 <div class="relative group">
                     <img src='${item.thumbnails[0]}' alt='image' class="w-12 h-12 object-cover rounded-md"/>
@@ -209,7 +209,7 @@ export function homeScript() {
     document.querySelector(".js-album-suggestions").innerHTML = data
       .map((item) => {
         return `
-        <a href="/albums/details/${item.slug}" class="shrink-0 block">
+        <a href="/albums/details/${item.slug}" data-navigo class="shrink-0 block">
           <div class="relative group">
             <img src='${item.thumbnails}' alt='image' class="w-[220px] rounded-2xl"/>
             <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
@@ -238,7 +238,7 @@ export function homeScript() {
     document.querySelector(".js-today-hits").innerHTML = data
       .map((item) => {
         return `
-        <a href="/playlists/details/${item.slug}" class="shrink-0 block">
+        <a href="/playlists/details/${item.slug}" data-navigo class="shrink-0 block">
           <div class="relative group">
             <img src='${item.thumbnails}' alt='image' class="w-[220px] h-[220px] object-cover rounded-2xl"/>
             <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
@@ -267,7 +267,7 @@ export function homeScript() {
     document.querySelector(".js-vietnamese-music").innerHTML = data
       .map((item) => {
         return `
-        <a href="/playlists/details/${item.slug}" class="shrink-0 block">
+        <a href="/playlists/details/${item.slug}" data-navigo class="shrink-0 block">
           <div class="relative group">
             <img src='${item.thumbnails}' alt='image' class="w-[220px] h-[220px] object-cover rounded-2xl"/>
             <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">

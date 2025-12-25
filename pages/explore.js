@@ -76,7 +76,7 @@ export function exploreScript() {
     document.querySelector(".js-explore-albums").innerHTML = albums
       .map((album) => {
         return `
-            <a href="/albums/details/${album.slug}" class="shrink-0 block">
+            <a href="/albums/details/${album.slug}" data-navigo class="shrink-0 block">
             <div class="relative group">
                 <img src='${album.thumb}' alt='image' class="w-[220px] rounded-2xl"/>
                 <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">

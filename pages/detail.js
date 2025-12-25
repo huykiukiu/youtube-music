@@ -32,7 +32,7 @@ export function detailScript(type, slud) {
     document.querySelector(".js-songs-detail").innerHTML = data.tracks
       .map((item) => {
         return `
-        <a href="/playlists/details/${item.slug}" class="relative group hover:bg-white/10 p-2 block">
+        <a href="/playlists/details/${item.slug}" data-navigo class="relative group hover:bg-white/10 p-2 block">
             <div class="flex gap-5">
                 <div class="relative group">
                     <img src='${item.thumbnails[0]}' alt='image' class="w-12 h-12 object-cover rounded-md"/>
