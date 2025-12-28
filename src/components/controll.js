@@ -1,8 +1,8 @@
 export default function Controll() {
   return `
-        <div class="js-controll fixed left-0 bottom-0 bg-[#212121] w-full h-16 flex items-center justify-between hidden">
+        <div class="js-controll fixed left-0 bottom-0 bg-[#212121] w-full h-20 flex items-center justify-between hidden">
             <input class="w-full h-1 absolute top-0" type='range'/>
-            <div class="flex items-center justify-between w-full">
+            <div class="flex items-center justify-between w-full px-5">
                 <div class="flex items-center gap-5">
                     <button class="js-previous-btn text-white"><i class="fa-solid fa-backward-step text-xl"></i></button>
                     <button class="js-play-btn text-white"><i class="fa-solid fa-play text-3xl"></i></button>
@@ -12,6 +12,15 @@ export default function Controll() {
                         <span class="js-current-time text-white">0:00</span>
                         <span class="text-white">/</span>
                         <span class="js-total-duration text-white">0:00</span>
+                    </div>
+                </div>
+                <div class="flex gap-5">
+                    <div>
+                        <img src='' alt=''class="js-img-controll w-10 h-10"/>
+                    </div>
+                    <div>
+                        <h3 class="js-title-controll text-white font-semibold text-[14px] sm:text-base truncate"></h3>
+                        <p class="js-artis-controll text-sm text-gray-400 truncate"></p>
                     </div>
                 </div>
                 <div class="flex items-center gap-5">

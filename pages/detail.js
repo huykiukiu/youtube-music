@@ -42,7 +42,7 @@ export function detailScript(type, slud) {
                 </div>
                 <div>
                     <h3 class="text-white">${item.title}</h3>
-                    <h3 class="text-gray-400">${item.artists}</h3>
+                    <p class="text-gray-400">${item.artists}</p>
                 </div>
             </div>
         </div>
@@ -64,6 +64,21 @@ export function detailScript(type, slud) {
       const pauseBtnEl = document.querySelector(".js-pause-btn"); //nút pause
       playBtnEl.classList.add("hidden");
       pauseBtnEl.classList.remove("hidden");
+
+      // các lấy một vài thuộc tính của phần tử bị click:
+      const imgSongSrc = song.querySelector("img").src;
+      const titleSong = song.querySelector("h3").innerText;
+      const artisSong = song.querySelector("p").innerText;
+      console.log(imgSongSrc, artisSong, titleSong);
+
+      // các phần tử ở controll để hiển thị:
+      const imgSongControllEL = document.querySelector(".js-img-controll");
+      const titleSongControllEl = document.querySelector(".js-title-controll");
+      const artisSongControllEl = document.querySelector(".js-artis-controll");
+      imgSongControllEL.src = imgSongSrc;
+      titleSongControllEl.innerText = titleSong;
+      artisSongControllEl.innerText = artisSong;
+
       audioPlayerEl.src = song.dataset.src;
       audioPlayerEl.play();
     }
