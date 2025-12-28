@@ -1,4 +1,5 @@
 import axios from "axios";
+import loadingManager from "./utils/loadingManager";
 
 const instance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
@@ -11,6 +12,12 @@ instance.interceptors.request.use((config) => {
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
   }
+
+  // Thêm request vào loading manager
+  const requestId = `${Date.now()}-${Math.random()}`;
+  config.metadata = { requestId };
+  loadingManager.addRequest(requestId);
+
   return config;
 });
 
@@ -43,11 +50,20 @@ const getNewToken = async () => {
 
 instance.interceptors.response.use(
   (response) => {
+    // Xóa request khỏi loading manager khi thành công
+    if (response.config.metadata?.requestId) {
+      loadingManager.removeRequest(response.config.metadata.requestId);
+    }
     return response;
   },
   async (error) => {
+    // Xóa request khỏi loading manager khi có lỗi
+    if (error.config?.metadata?.requestId) {
+      loadingManager.removeRequest(error.config.metadata.requestId);
+    }
+
     console.log(error);
-    if (error.status === 401) {
+    if (error.response?.status === 401) {
       if (!refreshPromise) {
         refreshPromise = getNewToken();
       }
@@ -56,7 +72,7 @@ instance.interceptors.response.use(
         //Lưu vào localStorage
         localStorage.setItem("access_token", newToken.access_token);
         localStorage.setItem("refresh_token", newToken.refresh_token);
-        //Gọi lại request bị failed
+        //Gọi lại request bị failed - interceptor request sẽ tự động thêm requestId mới
         return instance(error.config);
       } else {
         //Logout

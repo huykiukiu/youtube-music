@@ -1,6 +1,7 @@
 import Controll from "../src/components/controll";
 import { Header } from "../src/components/header";
 import { SideBar } from "../src/components/sidebar";
+import Loading from "../src/components/loading";
 export default function DefaultLayout() {
   return `
     ${Header()}
@@ -9,6 +10,7 @@ export default function DefaultLayout() {
         <main id="main-content" class="flex-1 mt-35 pb-28"></main>
     </div>
     ${Controll()}
+    ${Loading()}
     <script src="https://www.youtube.com/iframe_api"></script>
     `;
 }
