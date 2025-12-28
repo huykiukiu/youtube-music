@@ -1,3 +1,4 @@
+import Moods, { moodsScript } from "../pages/moods";
 import VideoDetail, { videosScript } from "../pages/videoDetail";
 import Controll, { controllScript } from "../src/components/controll";
 import Explore, { exploreScript } from "../pages/explore";
@@ -40,6 +41,11 @@ export default function router() {
     const mainContent = document.querySelector("#main-content");
     mainContent.innerHTML = VideoDetail();
     videosScript(data.slud);
+  });
+  router.on("/moods/:slud", ({ data }) => {
+    const mainContent = document.querySelector("#main-content");
+    mainContent.innerHTML = Moods();
+    moodsScript(data.slud);
   });
   router.resolve();
 }

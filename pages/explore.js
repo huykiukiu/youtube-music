@@ -21,10 +21,10 @@ export default function Explore() {
                 <div class="flex items-end justify-between mb-10">
                     <h1 class="text-white text-5xl font-bold">Khám phá Albums mới</h1>
                     <div class="flex gap-4">
-                        <div class="js-album-previous-btn w-8 h-8 rounded-full bg-[#132337] flex justify-center items-center cursor-pointer">
+                        <div class="js-explore-album-previous-btn w-8 h-8 rounded-full bg-[#132337] flex justify-center items-center cursor-pointer">
                             <i class="fa-solid fa-angle-left text-gray-500"></i>
                         </div>
-                        <div class="js-album-next-btn w-8 h-8 rounded-full bg-[#132337] flex justify-center items-center cursor-pointer">
+                        <div class="js-explore-album-next-btn w-8 h-8 rounded-full bg-[#132337] flex justify-center items-center cursor-pointer">
                             <i class="fa-solid fa-angle-right text-gray-500"></i>
                         </div>
                     </div>
@@ -37,10 +37,10 @@ export default function Explore() {
                 <div class="flex items-end justify-between mb-10">
                     <h1 class="text-white text-5xl font-bold">Tâm trạng và thể loại</h1>
                     <div class="flex gap-4">
-                        <div class="js-album-previous-btn w-8 h-8 rounded-full bg-[#132337] flex justify-center items-center cursor-pointer">
+                        <div class="js-genre-previous-btn w-8 h-8 rounded-full bg-[#132337] flex justify-center items-center cursor-pointer">
                             <i class="fa-solid fa-angle-left text-gray-500"></i>
                         </div>
-                        <div class="js-album-next-btn w-8 h-8 rounded-full bg-[#132337] flex justify-center items-center cursor-pointer">
+                        <div class="js-genre-next-btn w-8 h-8 rounded-full bg-[#132337] flex justify-center items-center cursor-pointer">
                             <i class="fa-solid fa-angle-right text-gray-500"></i>
                         </div>
                     </div>
@@ -53,10 +53,10 @@ export default function Explore() {
                 <div class="flex items-end justify-between mb-10">
                     <h1 class="text-white text-5xl font-bold">Video nhạc mới</h1>
                     <div class="flex gap-4">
-                        <div class="js-album-previous-btn w-8 h-8 rounded-full bg-[#132337] flex justify-center items-center cursor-pointer">
+                        <div class="js-explore-videos-previous-btn w-8 h-8 rounded-full bg-[#132337] flex justify-center items-center cursor-pointer">
                             <i class="fa-solid fa-angle-left text-gray-500"></i>
                         </div>
-                        <div class="js-album-next-btn w-8 h-8 rounded-full bg-[#132337] flex justify-center items-center cursor-pointer">
+                        <div class="js-explore-videos-next-btn w-8 h-8 rounded-full bg-[#132337] flex justify-center items-center cursor-pointer">
                             <i class="fa-solid fa-angle-right text-gray-500"></i>
                         </div>
                     </div>
@@ -70,6 +70,92 @@ export default function Explore() {
 }
 
 export function exploreScript() {
+  // Hàm tạo slider navigation chung với width động
+  function createSliderNavigation(
+    containerSelector,
+    prevBtnSelector,
+    nextBtnSelector,
+    visibleItems = 5
+  ) {
+    const container = document.querySelector(containerSelector);
+    const prevBtn = document.querySelector(prevBtnSelector);
+    const nextBtn = document.querySelector(nextBtnSelector);
+
+    if (!container || !prevBtn || !nextBtn || container.children.length === 0)
+      return;
+
+    let currentIndex = 0;
+    const totalItems = container.children.length;
+    const maxIndex = Math.max(0, totalItems - visibleItems);
+
+    // Lấy width và gap động từ phần tử đầu tiên
+    const getItemDimensions = () => {
+      const firstItem = container.children[0];
+      const itemWidth = firstItem.offsetWidth;
+
+      // Lấy gap từ CSS computed style của container
+      const containerStyle = window.getComputedStyle(container);
+      const gap = parseFloat(containerStyle.gap) || 0;
+
+      return { itemWidth, gap };
+    };
+
+    const handleSlide = (index) => {
+      if (index > maxIndex || index < 0) return;
+
+      const { itemWidth, gap } = getItemDimensions();
+      const translateX = index * (itemWidth + gap);
+      container.style.transform = `translateX(-${translateX}px)`;
+      currentIndex = index;
+
+      // Cập nhật trạng thái nút
+      updateButtonState();
+    };
+
+    const updateButtonState = () => {
+      // Disable nút previous khi ở đầu
+      if (currentIndex <= 0) {
+        prevBtn.style.opacity = "0.5";
+        prevBtn.style.cursor = "not-allowed";
+      } else {
+        prevBtn.style.opacity = "1";
+        prevBtn.style.cursor = "pointer";
+      }
+
+      // Disable nút next khi ở cuối
+      if (currentIndex >= maxIndex) {
+        nextBtn.style.opacity = "0.5";
+        nextBtn.style.cursor = "not-allowed";
+      } else {
+        nextBtn.style.opacity = "1";
+        nextBtn.style.cursor = "pointer";
+      }
+    };
+
+    // Xử lý nút next
+    nextBtn.addEventListener("click", () => {
+      if (currentIndex >= maxIndex) return;
+      handleSlide(currentIndex + 1);
+    });
+
+    // Xử lý nút previous
+    prevBtn.addEventListener("click", () => {
+      if (currentIndex <= 0) return;
+      handleSlide(currentIndex - 1);
+    });
+
+    // Khởi tạo trạng thái ban đầu
+    updateButtonState();
+
+    // Xử lý resize window để tính lại khi màn hình thay đổi
+    let resizeTimer;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        handleSlide(currentIndex); // Tính lại vị trí với kích thước mới
+      }, 250);
+    });
+  }
   async function fetchAlbumsInExplore() {
     const response = await instance.get("/explore/albums");
     const albums = response.data.items;
@@ -89,6 +175,11 @@ export function exploreScript() {
         `;
       })
       .join("");
+    createSliderNavigation(
+      ".js-explore-albums",
+      ".js-explore-album-previous-btn",
+      ".js-explore-album-next-btn"
+    );
   }
   fetchAlbumsInExplore();
 
@@ -121,6 +212,11 @@ export function exploreScript() {
         `;
       }
     );
+    createSliderNavigation(
+      ".js-explore-genre",
+      ".js-genre-previous-btn",
+      ".js-genre-next-btn"
+    );
   }
   fetchGenre();
 
@@ -145,6 +241,11 @@ export function exploreScript() {
         `;
       })
       .join("");
+    createSliderNavigation(
+      ".js-explore-videos",
+      ".js-explore-videos-previous-btn",
+      ".js-explore-videos-next-btn"
+    );
   }
   fetchVideos();
 }

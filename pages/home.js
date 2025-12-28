@@ -156,12 +156,14 @@ export function homeScript() {
   async function fetchMoods() {
     const response = await instance.get("/moods");
     const moods = response.data.items;
+    console.log(moods);
+
     document.querySelector(".js-moods").innerHTML = moods
       .map((mood) => {
         return `
-        <div class="group"> 
+        <a href="moods/${mood.slug}" data-navigo class="group"> 
           <button class="bg-[#39414C] text-white px-2 py-1 rounded-md cursor-pointer text-[14px] group-hover:bg-gray-400">${mood.name}</button>
-        </div>
+        </a>
         `;
       })
       .join("");
