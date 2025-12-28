@@ -1,7 +1,7 @@
 export default function Controll() {
   return `
         <div class="js-controll fixed left-0 bottom-0 bg-[#212121] w-full h-20 flex items-center justify-between hidden">
-            <input class="w-full h-1 absolute top-0" type='range'/>
+            <input class="js-slider-controll w-full h-1 absolute top-0" type='range' value="0"/>
             <div class="flex items-center justify-between w-full px-5">
                 <div class="flex items-center gap-5">
                     <button class="js-previous-btn text-white"><i class="fa-solid fa-backward-step text-xl"></i></button>
@@ -24,7 +24,8 @@ export default function Controll() {
                     </div>
                 </div>
                 <div class="flex items-center gap-5">
-                    <button class="text-white"><i class="fa-solid fa-volume-high text-xl"></i></button>
+                    <button class="js-volume-btn text-white"><i class="js-icon-volume fa-solid fa-volume-high text-xl"></i></button>
+                    <input type='range' class="js-volume-range" min="0" max="100" value="100"></input>
                     <button class="text-white"><i class="fa-solid fa-repeat text-lg md:text-xl"></i></button>
                     <button class="text-white"><i class="fa-solid fa-shuffle text-lg md:text-xl"></i></button>
                 </div>
@@ -38,6 +39,8 @@ export function controllScript() {
   const audioPlayerEl = document.querySelector(".js-audio-player"); //audio
   const playBtnEl = document.querySelector(".js-play-btn"); // nút play
   const pauseBtnEl = document.querySelector(".js-pause-btn"); //nút pause
+  const volumeRangeEl = document.querySelector(".js-volume-range");
+  const sliderEl = document.querySelector(".js-slider-controll");
 
   playBtnEl.addEventListener("click", () => {
     playBtnEl.classList.add("hidden");
@@ -53,9 +56,48 @@ export function controllScript() {
 
   audioPlayerEl.addEventListener("timeupdate", () => {
     const currentTimeEl = document.querySelector(".js-current-time");
+    const sliderEl = document.querySelector(".js-slider-controll");
+    const currentTime = Math.floor(audioPlayerEl.currentTime);
+    sliderEl.value = currentTime;
     const totalSeconds = Math.floor(audioPlayerEl.currentTime);
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
     currentTimeEl.innerText = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+  });
+
+  // Xử lý tăng giảm âm lượng
+  volumeRangeEl.addEventListener("input", (e) => {
+    const audioPlayerEl = document.querySelector(".js-audio-player"); //audio
+    const iconvolumeEl = document.querySelector(".js-icon-volume");
+    const volume = e.target.value / 100;
+    audioPlayerEl.volume = volume;
+    if (volume === 0) {
+      iconvolumeEl.className =
+        "js-icon-volume fa-solid fa-volume-xmark text-xl";
+    } else if (volume <= 0.5) {
+      iconvolumeEl.className = "js-icon-volume fa-solid fa-volume-low text-xl";
+    } else {
+      iconvolumeEl.className = "js-icon-volume fa-solid fa-volume-high text-xl";
+    }
+  });
+
+  // Xử lý kéo slider để tua nhạc:
+  sliderEl.addEventListener("input", (e) => {
+    audioPlayerEl.currentTime = sliderEl.value;
+  });
+
+  // update duration display:
+  audioPlayerEl.addEventListener("loadedmetadata", () => {
+    const totalDurationEl = document.querySelector(".js-total-duration");
+    const duration = Math.floor(audioPlayerEl.duration);
+    const minutes = Math.floor(duration / 60);
+    const seconds = duration % 60;
+    totalDurationEl.innerText = `${minutes}:${
+      seconds < 10 ? "0" : ""
+    }${seconds}`;
+    const sliderEl = document.querySelector(".js-slider-controll");
+    // set max cho slider
+    sliderEl.max = duration;
+    sliderEl.value = 0;
   });
 }

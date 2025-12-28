@@ -15,7 +15,6 @@ export function detailScript(type, slud) {
     const totalSeconds = data.duration;
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
-    console.log(data.tracks);
     document.querySelector(".js-infor-detail").innerHTML = `
         <div class="flex flex-col items-center justify-center gap-3 sticky top-24">
             <img src='${data.thumbnails[0]}' alt='image' class="w-100 h-100 object-cover rounded-xl"/>
@@ -83,7 +82,6 @@ export function detailScript(type, slud) {
       audioPlayerEl.play();
     }
   });
-
   // update duration display:
   const audioPlayerEl = document.querySelector(".js-audio-player");
   audioPlayerEl.addEventListener("loadedmetadata", () => {

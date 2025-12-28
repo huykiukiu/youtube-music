@@ -1,5 +1,4 @@
 import instance from "../src/httpRequest";
-
 export default function Home() {
   return `
   <div class="w-[1200px] mx-auto">
