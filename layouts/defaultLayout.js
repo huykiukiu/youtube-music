@@ -1,7 +1,6 @@
 import Controll from "../src/components/controll";
 import { Header } from "../src/components/header";
 import { SideBar } from "../src/components/sidebar";
-
 export default function DefaultLayout() {
   return `
     ${Header()}

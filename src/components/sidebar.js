@@ -17,14 +17,14 @@ export const SideBar = () => {
             </li>
 
             <li>
-                <a href=''class="flex flex-col items-center justify-center gap-1 p-3 hover:bg-white/10 rounded-xl transition group sidebar-active">
+                <a href='/library' data-navigo class="flex flex-col items-center justify-center gap-1 p-3 hover:bg-white/10 rounded-xl transition group sidebar-active">
                     <i class="fa-solid fa-bookmark text-2xl"></i>
                     <span class="text-[11px] text-gray-300 group-hover:text-white">Thư viện</span>
                 </a>
             </li>
 
             <li>
-                <a href=''class="flex flex-col items-center justify-center gap-1 p-3 hover:bg-white/10 rounded-xl transition group sidebar-active">
+                <a href='/upgrade' data-navigo class="flex flex-col items-center justify-center gap-1 p-3 hover:bg-white/10 rounded-xl transition group sidebar-active">
                     <i class="fa-solid fa-crown text-2xl"></i>
                     <span class="text-[11px] text-gray-300 group-hover:text-white">Nâng cấp</span>
                 </a>

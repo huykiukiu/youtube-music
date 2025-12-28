@@ -10,15 +10,17 @@ export const Header = () => {
               <span class="text-xl font-semibold tracking-tight text-white">Music</span>    
             </a>
         </div>
-            <div class="bg-[#242424] px-5 py-3 rounded-md"> 
+            <div class="bg-[#242424] px-5 py-3 rounded-md relative"> 
               <span class="text-white"><i class="fa-solid fa-magnifying-glass"></i></span>
-              <input type='search' class="text-white w-[400px] px-1.5 outline-none" placeholder="Tìm bài hát, đĩa nhạc, nghệ sĩ"></input>
+              <input type='search' class="js-search-input text-white w-[400px] px-1.5 outline-none" placeholder="Tìm bài hát, đĩa nhạc, nghệ sĩ"></input>
+              <div class="js-search-suggestions absolute bg-[#2A2A2A] flex flex-col w-[500px] top-15 left-0 rounded-md"></div>
             </div>
             <div class="flex items-center gap-5">
               <div><i class="fa-brands fa-chromecast text-white text-[24px]"></i></div>
               <div><i class="fa-solid fa-ellipsis-vertical text-white text-[24px]"></i></div>
               <button class="bg-white text-black px-2 py-1 rounded-3xl font-semibold">Đăng nhập</button>
-            </div>
+        </div>
+
     </div>
   </header>
   `;

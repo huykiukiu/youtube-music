@@ -12,20 +12,30 @@ export function detailScript(type, slud) {
   async function fetchPlaylistOrAlbumsDetail() {
     const response = await instance.get(`/${type}/details/${slud}`);
     const data = response.data;
+    console.log(data);
+
     const totalSeconds = data.duration;
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
     document.querySelector(".js-infor-detail").innerHTML = `
         <div class="flex flex-col items-center justify-center gap-3 sticky top-24">
-            <img src='${data.thumbnails[0]}' alt='image' class="w-100 h-100 object-cover rounded-xl"/>
-            <h1 class="text-white text-2xl">${data.tracks.title}</h1>
-            <p class="text-white/70">${data.tracks.description}</p>
+            <img src='${
+              data.thumbnails[0]
+            }' alt='image' class="w-100 h-100 object-cover rounded-xl"/>
+            <h1 class="text-white text-2xl">${
+              data.title ? data.title : "Unknown"
+            }</h1>
+            <p class="text-white/70">${
+              data.description ? data.description : "Description: Empty"
+            }</p>
             <div>
-                <span class="text-white/70">${data.tracks.length} bài hát</span>
+                <span class="text-white/70">${data.songCount} bài hát</span>
                 <span class="text-white/70">•</span>
                 <span class="text-white/70">${hours} giờ ${minutes} phút</span>
             </div>
-            <p class="text-white/70">Các nghệ sĩ: ${data.tracks.artists}</p>
+            <p class="text-white/70">Các nghệ sĩ: ${
+              data.artists ? data.artists : "Unknown"
+            }</p>
         </div>
     `;
     document.querySelector(".js-songs-detail").innerHTML = data.tracks
