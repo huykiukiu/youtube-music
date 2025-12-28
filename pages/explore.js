@@ -110,7 +110,7 @@ export function exploreScript() {
                 ${array
                   .map((item) => {
                     return `
-                        <a href='' class="text-white flex bg-[#292929] items-center h-10">
+                        <a href='#' class="text-white flex bg-[#292929] items-center h-10">
                             <div style="background-color:${item.color};" class="h-full w-2 rounded-l-[999px] rounded-tr-[30px] rounded-br-[30px]"></div>
                             <p class="flex-1 flex justify-center">${item.name}</p>
                         </a>
@@ -132,11 +132,16 @@ export function exploreScript() {
     document.querySelector(".js-explore-videos").innerHTML = videos
       .map((video) => {
         return `
-            <div class="shrink-0">
-                <img class="rounded-xl w-full h-[180px]" src='${video.thumb}' alt='image'/>
+            <a href="/videos/details/${video.slug}" data-navigo class="shrink-0">
+                <div class="relative group">
+                    <img class="rounded-xl w-full h-[180px]" src='${video.thumb}' alt='image'/>
+                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                        <i class="fa-solid fa-play text-white text-5xl"></i>
+                    </div>
+                </div>
                 <p class="text-white">${video.name}</p>
                 <p class="text-white">${video.views} lượt xem</p>
-            </div>
+            </a>
         `;
       })
       .join("");

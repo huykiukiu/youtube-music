@@ -10,5 +10,6 @@ export default function DefaultLayout() {
         <main id="main-content" class="flex-1 mt-35 pb-28"></main>
     </div>
     ${Controll()}
+    <script src="https://www.youtube.com/iframe_api"></script>
     `;
 }

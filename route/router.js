@@ -1,3 +1,4 @@
+import VideoDetail, { videosScript } from "../pages/videoDetail";
 import Controll, { controllScript } from "../src/components/controll";
 import Explore, { exploreScript } from "../pages/explore";
 import Detail, { detailScript } from "../pages/detail";
@@ -34,6 +35,11 @@ export default function router() {
     mainContent.innerHTML = Detail();
     detailScript("albums", data.slud);
     controllScript();
+  });
+  router.on("/videos/details/:slud", ({ data }) => {
+    const mainContent = document.querySelector("#main-content");
+    mainContent.innerHTML = VideoDetail();
+    videosScript(data.slud);
   });
   router.resolve();
 }
