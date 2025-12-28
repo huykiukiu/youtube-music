@@ -32,7 +32,7 @@ export function detailScript(type, slud) {
     document.querySelector(".js-songs-detail").innerHTML = data.tracks
       .map((item) => {
         return `
-        <a href="/playlists/details/${item.slug}" data-navigo class="relative group hover:bg-white/10 p-2 block">
+        <div data-src="${item.audioUrl}" class="js-song relative group hover:bg-white/10 p-2 block cursor-pointer">
             <div class="flex gap-5">
                 <div class="relative group">
                     <img src='${item.thumbnails[0]}' alt='image' class="w-12 h-12 object-cover rounded-md"/>
@@ -45,10 +45,39 @@ export function detailScript(type, slud) {
                     <h3 class="text-gray-400">${item.artists}</h3>
                 </div>
             </div>
-        </a>
+        </div>
       `;
       })
       .join("");
   }
   fetchPlaylistOrAlbumsDetail();
+
+  // phát nhạc khi chọn bài hát
+  const songsListDetailEl = document.querySelector(".js-songs-detail");
+  songsListDetailEl.addEventListener("click", (e) => {
+    const song = e.target.closest(".js-song");
+    if (song) {
+      const controllEl = document.querySelector(".js-controll");
+      controllEl.classList.remove("hidden");
+      const audioPlayerEl = document.querySelector(".js-audio-player"); //audio
+      const playBtnEl = document.querySelector(".js-play-btn"); // nút play
+      const pauseBtnEl = document.querySelector(".js-pause-btn"); //nút pause
+      playBtnEl.classList.add("hidden");
+      pauseBtnEl.classList.remove("hidden");
+      audioPlayerEl.src = song.dataset.src;
+      audioPlayerEl.play();
+    }
+  });
+
+  // update duration display:
+  const audioPlayerEl = document.querySelector(".js-audio-player");
+  audioPlayerEl.addEventListener("loadedmetadata", () => {
+    const totalDurationEl = document.querySelector(".js-total-duration");
+    const duration = Math.floor(audioPlayerEl.duration);
+    const minutes = Math.floor(duration / 60);
+    const seconds = duration % 60;
+    totalDurationEl.innerText = `${minutes}:${
+      seconds < 10 ? "0" : ""
+    }${seconds}`;
+  });
 }

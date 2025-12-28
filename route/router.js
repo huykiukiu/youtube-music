@@ -1,3 +1,4 @@
+import Controll, { controllScript } from "../src/components/controll";
 import Explore, { exploreScript } from "../pages/explore";
 import Detail, { detailScript } from "../pages/detail";
 import Home, { homeScript } from "../pages/home";
@@ -26,11 +27,13 @@ export default function router() {
     const mainContent = document.querySelector("#main-content");
     mainContent.innerHTML = Detail();
     detailScript("playlists", data.slud);
+    controllScript();
   });
   router.on("/albums/details/:slud", ({ data }) => {
     const mainContent = document.querySelector("#main-content");
     mainContent.innerHTML = Detail();
     detailScript("albums", data.slud);
+    controllScript();
   });
   router.resolve();
 }
