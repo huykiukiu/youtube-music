@@ -201,7 +201,7 @@ export function exploreScript() {
                 ${array
                   .map((item) => {
                     return `
-                        <a href='#' class="text-white flex bg-[#292929] items-center h-10">
+                        <a href='/${item.slug}' data-navigo class="text-white flex bg-[#292929] items-center h-10">
                             <div style="background-color:${item.color};" class="h-full w-2 rounded-l-[999px] rounded-tr-[30px] rounded-br-[30px]"></div>
                             <p class="flex-1 flex justify-center">${item.name}</p>
                         </a>

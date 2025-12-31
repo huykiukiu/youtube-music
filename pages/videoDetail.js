@@ -1,7 +1,7 @@
 import instance from "../src/httpRequest";
 export default function VideoDetail() {
   return `
-    <div class="flex justify-evenly w-[1200px] mx-auto gap-20">
+    <div class="flex justify-evenly w-[80%] mx-auto gap-20">
         <iframe
             class="js-main-video"
             width="900"

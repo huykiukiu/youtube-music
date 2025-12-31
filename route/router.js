@@ -35,7 +35,6 @@ export default function router() {
     const mainContent = document.querySelector("#main-content");
     mainContent.innerHTML = Detail();
     detailScript("albums", data.slud);
-    controllScript();
   });
   router.on("/videos/details/:slud", ({ data }) => {
     const mainContent = document.querySelector("#main-content");
