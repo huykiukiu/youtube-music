@@ -12,8 +12,8 @@ export function detailScript(type, slud) {
   async function fetchPlaylistOrAlbumsDetail() {
     const response = await instance.get(`/${type}/details/${slud}`);
     const data = response.data;
-    console.log(data);
-
+    const tracks = response.data.tracks;
+    console.log("tracks:", tracks);
     const totalSeconds = data.duration;
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
