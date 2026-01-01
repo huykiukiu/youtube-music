@@ -15,13 +15,21 @@ export const Header = () => {
               <input type='search' class="js-search-input text-white w-[400px] px-1.5 outline-none" placeholder="Tìm bài hát, đĩa nhạc, nghệ sĩ"></input>
               <div class="js-search-suggestions absolute bg-[#2A2A2A] flex flex-col w-[500px] top-15 left-0 rounded-md"></div>
             </div>
-            <div class="flex items-center gap-5">
+            <div class="js-user-action flex items-center gap-5 relative">
               <div><i class="fa-brands fa-chromecast text-white text-[24px]"></i></div>
               <div><i class="fa-solid fa-ellipsis-vertical text-white text-[24px]"></i></div>
               <a href="/login" data-navigo class="js-login-btn bg-white text-black px-2 py-1 rounded-3xl font-semibold">Đăng nhập</a>
-              <div>
-                <button id="js-user-avatar" class="w-10 h-10 flex items-center justify-center bg-white/20 rounded-full text-white font-semibold cursor-pointer hover:bg-white/30 transition"></button>
-                <div class="js-dropdown-avatar"></div>
+              <button id="js-user-avatar" class="w-10 h-10 flex items-center justify-center bg-white/20 rounded-full text-white font-semibold cursor-pointer hover:bg-white/30 transition"></button>
+              <div class="js-dropdown-avatar w-52 bg-[#363636] rounded-md absolute top-[45px] right-0.5 hidden">
+                <a class="js-update-btn block text-white px-4 py-3 text-sm hover:bg-white/10 transition cursor-pointer">
+                  Thông tin người dùng
+                </a>
+                <a class="js-changePassword-btn block text-white px-4 py-3 text-sm hover:bg-white/10 transition cursor-pointer">
+                  Đổi mật khẩu
+                </a>
+                <a class="js-logout-btn block text-red-500 px-4 py-3 text-sm hover:bg-white/10 transition cursor-pointer">
+                  Đăng xuất
+                </a>
               </div>
         </div>
     </div>

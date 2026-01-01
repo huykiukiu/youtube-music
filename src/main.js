@@ -4,7 +4,7 @@ import router, { initRouter } from "../route/router";
 import { initSidebarToggle } from "./components/sidebarController";
 import { searchController } from "./components/searchController";
 import loadingManager from "./utils/loadingManager";
-
+import userAction from "./utils/userAction";
 const app = document.querySelector("#app");
 app.innerHTML = DefaultLayout();
 initRouter();
@@ -12,3 +12,4 @@ loadingManager.init(); // Khởi tạo loading manager sau khi DOM đã được
 initSidebarToggle();
 controllScript();
 searchController();
+userAction();

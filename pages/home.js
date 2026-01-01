@@ -1,4 +1,5 @@
 import instance from "../src/httpRequest";
+import router from "../route/router";
 export default function Home() {
   return `
   <div class="w-[1200px] mx-auto">
@@ -326,7 +327,7 @@ export function homeScript() {
     const heardRecentlyWrapEl = document.querySelector(
       ".js-heard-recently-wrap"
     );
-
+    const dropdownAvatarEl = document.querySelector(".js-dropdown-avatar");
     if (!token) {
       userAvatarEl.classList.add("hidden");
       loginBtnEl.classList.remove("hidden");
@@ -346,6 +347,55 @@ export function homeScript() {
 
     // hiển thị danh sách nghe gần đây khi đăng nhập
     heardRecentlyWrapEl.classList.remove("hidden");
+
+    // xử lý khi click vào avtar:
+    userAvatarEl.addEventListener("click", () => {
+      dropdownAvatarEl.classList.toggle("hidden");
+    });
   }
   handleUIlogin();
+
+  async function handleLogout() {
+    const userAvatarEl = document.querySelector("#js-user-avatar");
+    const loginBtnEl = document.querySelector(".js-login-btn");
+    const dropdownAvatarEl = document.querySelector(".js-dropdown-avatar");
+    const logoutBtn = document.querySelector(".js-logout-btn");
+    if (!logoutBtn) return;
+    logoutBtn.addEventListener("click", async (e) => {
+      e.preventDefault();
+      const token = localStorage.getItem("access_token");
+      if (!token) {
+        router.navigate("/login");
+        return;
+      }
+      // xử lý khi click vào avtar:
+      userAvatarEl.addEventListener("click", () => {
+        dropdownAvatarEl.classList.toggle("hidden");
+      });
+      try {
+        await fetch("https://youtube-music.f8team.dev/api/auth/logout", {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      } catch (error) {
+        console.error("Logout error:", error);
+      } finally {
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
+        localStorage.removeItem("user");
+        alert("Đã đăng xuất");
+        dropdownAvatarEl.classList.add("hidden");
+        userAvatarEl.classList.add("hidden");
+        loginBtnEl.classList.remove("hidden");
+        router.navigate("/login");
+        // Gọi lại để bind event listener cho DOM mới
+        // setTimeout(() => {
+        //   handleUIlogin();
+        // }, 100);
+      }
+    });
+  }
+  handleLogout();
 }
