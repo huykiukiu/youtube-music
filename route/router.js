@@ -1,3 +1,4 @@
+import Login, { loginScript } from "../pages/login";
 import Moods, { moodsScript } from "../pages/moods";
 import VideoDetail, { videosScript } from "../pages/videoDetail";
 import Controll, { controllScript } from "../src/components/controll";
@@ -7,11 +8,12 @@ import Home, { homeScript } from "../pages/home";
 import NewRealeases, { newRealeasesScript } from "../pages/newReleases";
 import Navigo from "navigo";
 
-export default function router() {
-  const router = new Navigo("/", {
-    hash: false,
-  });
+const router = new Navigo("/", {
+  hash: false,
+});
+export default router;
 
+export function initRouter() {
   router.on("/", () => {
     const mainContent = document.querySelector("#main-content");
     mainContent.innerHTML = Home();
@@ -50,6 +52,16 @@ export default function router() {
     const mainContent = document.querySelector("#main-content");
     mainContent.innerHTML = NewRealeases();
     newRealeasesScript();
+  });
+  router.on("/chart", ({ data }) => {
+    const mainContent = document.querySelector("#main-content");
+    mainContent.innerHTML = NewRealeases();
+    newRealeasesScript();
+  });
+  router.on("/login", ({ data }) => {
+    const mainContent = document.querySelector("#main-content");
+    mainContent.innerHTML = Login();
+    loginScript();
   });
   router.resolve();
 }

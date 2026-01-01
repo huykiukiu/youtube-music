@@ -2,8 +2,13 @@ import instance from "../src/httpRequest";
 export default function Home() {
   return `
   <div class="w-[1200px] mx-auto">
+    <h2 class="js-hello text-4xl lg:text-5xl font-semibold text-white mb-20 hidden"></h2>
     <section class="mb-35">
         <div class="js-moods flex gap-5 mb-35"></div>
+        <div class="js-heard-recently-wrap mb-35 hidden">
+          <h1 class="text-white text-5xl font-bold mb-5">Nghe gần đây</h1>
+          <div class="js-heard-recently flex gap-5 overflow-y-auto"></div>
+        </div>
         <div>
             <div class="flex items-end justify-between">
                 <h1 class="text-white text-5xl font-bold">Quick picks</h1>
@@ -156,8 +161,6 @@ export function homeScript() {
   async function fetchMoods() {
     const response = await instance.get("/moods");
     const moods = response.data.items;
-    console.log(moods);
-
     document.querySelector(".js-moods").innerHTML = moods
       .map((mood) => {
         return `
@@ -290,4 +293,59 @@ export function homeScript() {
     );
   }
   fetchVietnameseMusic();
+
+  async function fetchHeardRecently() {
+    const response = await instance.get("home/personalized?limit=12");
+    const data = response.data;
+    console.log(data);
+    document.querySelector(".js-heard-recently").innerHTML = data
+      .map((item) => {
+        return `
+        <a href="/${item.type}s/details/${item.id}" data-navigo class="shrink-0 block">
+          <div class="relative group">
+            <img src='${item.thumbnails}' alt='image' class="w-[220px] h-[220px] object-cover  rounded-2xl"/>
+            <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+              <i class="fa-solid fa-play text-white text-5xl"></i>
+            </div>
+          </div>
+          <h3 class="text-white w-[220px] truncate">${item.title}</h3>
+          <p class="text-gray-400">${item.artists}</p>
+        </a>
+      `;
+      })
+      .join("");
+  }
+  fetchHeardRecently();
+
+  // xử lý UI khi đăng nhập:
+  function handleUIlogin() {
+    const token = localStorage.getItem("access_token");
+    const user = JSON.parse(localStorage.getItem("user"));
+    const userAvatarEl = document.querySelector("#js-user-avatar");
+    const loginBtnEl = document.querySelector(".js-login-btn");
+    const heardRecentlyWrapEl = document.querySelector(
+      ".js-heard-recently-wrap"
+    );
+
+    if (!token) {
+      userAvatarEl.classList.add("hidden");
+      loginBtnEl.classList.remove("hidden");
+      heardRecentlyWrapEl.classList.add("hidden");
+      return;
+    }
+    const userCopy = { ...user };
+    const avatar = userCopy.name.slice(0, 1); //cắt tên để làm avât
+    const helloEL = document.querySelector(".js-hello");
+    helloEL.classList.remove("hidden");
+    helloEL.innerText = `👋 Chào mừng ${user.name}`;
+
+    // xử lý hiển thị avatar acton:
+    userAvatarEl.classList.remove("hidden");
+    userAvatarEl.innerHTML = avatar;
+    loginBtnEl.classList.add("hidden");
+
+    // hiển thị danh sách nghe gần đây khi đăng nhập
+    heardRecentlyWrapEl.classList.remove("hidden");
+  }
+  handleUIlogin();
 }

@@ -18,9 +18,12 @@ export const Header = () => {
             <div class="flex items-center gap-5">
               <div><i class="fa-brands fa-chromecast text-white text-[24px]"></i></div>
               <div><i class="fa-solid fa-ellipsis-vertical text-white text-[24px]"></i></div>
-              <button class="bg-white text-black px-2 py-1 rounded-3xl font-semibold">Đăng nhập</button>
+              <a href="/login" data-navigo class="js-login-btn bg-white text-black px-2 py-1 rounded-3xl font-semibold">Đăng nhập</a>
+              <div>
+                <button id="js-user-avatar" class="w-10 h-10 flex items-center justify-center bg-white/20 rounded-full text-white font-semibold cursor-pointer hover:bg-white/30 transition"></button>
+                <div class="js-dropdown-avatar"></div>
+              </div>
         </div>
-
     </div>
   </header>
   `;
